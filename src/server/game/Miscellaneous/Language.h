@@ -1160,6 +1160,11 @@ enum TrinityStrings
     LANG_CREATURE_NOT_AI_ENABLED                  = 11015,
     LANG_SELECT_PLAYER_OR_PET                     = 11016,
     LANG_SHUTDOWN_DELAYED                         = 11017,
-    LANG_SHUTDOWN_CANCELLED                       = 11018
+    LANG_SHUTDOWN_CANCELLED                       = 11018,
+
+    LANG_ACE_PLAYER_LONGIN_FIRST                  = 90000,
+    LANG_ACE_PLAYER_LONGIN                        = 90001,
+
+    LANG_MAX_DATABASE_STATEMENTS                  = 100000
 };
 #endif
