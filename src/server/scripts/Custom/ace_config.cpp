@@ -55,7 +55,7 @@ public:
     {
         // login hint
         AceConfig const* itr = sAceMgr->GetAceConfig("Player.login");
-        if (itr)
+        if (itr && itr->value == 1)
         {
             if (loginFirst)
                 sWorld->SendWorldText(LANG_ACE_PLAYER_LONGIN_FIRST, player->GetName().c_str());

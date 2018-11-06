@@ -17,10 +17,12 @@
 
 // This is where scripts' loading functions should be declared:
 void AddSC_cs_ace_config();
+void AddSC_cs_ace_command();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
 void AddCustomScripts()
 {
     AddSC_cs_ace_config();
+    AddSC_cs_ace_command();
 }

@@ -775,6 +775,10 @@ enum RBACPermissions
     // IF YOU ADD NEW PERMISSIONS, ADD THEM IN MASTER BRANCH AS WELL!
     //
     // custom permissions 1000+
+    RBAC_PERM_COMMAND_ACE                                    = 3000,
+    RBAC_PERM_COMMAND_ACE_RELOAD                             = 3001,
+    RBAC_PERM_COMMAND_ACE_RELOAD_ACECONFIG                   = 3002,
+
     RBAC_PERM_MAX
 };
 
