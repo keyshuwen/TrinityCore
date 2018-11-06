@@ -18,7 +18,6 @@
 #ifndef SC_ACE_COMMON_H
 #define SC_ACE_COMMON_H
 
-
 #include "Common.h"
 #include "DatabaseEnv.h"
 #include "DatabaseEnvFwd.h"
@@ -57,6 +56,5 @@ class TC_GAME_API AceMgr
 };
 
 #define sAceMgr AceMgr::instance()
-
 
 #endif

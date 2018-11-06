@@ -15,13 +15,6 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
- /* ScriptData
- Name: ace_vipscript
- %Complete:
- Comment:
- Category: vipscripts
- EndScriptData */
-
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "DBCStores.h"
@@ -38,7 +31,6 @@
 #include "Language.h"
 #include "ace_common.h"
 
-
 class cs_ace_PrepareToPlay : public WorldScript
 {
 public:
@@ -46,7 +38,7 @@ public:
 
     void OnStartup() override
     {
-        TC_LOG_INFO("server.loading", "============================================================================");
+        TC_LOG_INFO("server.loading", "=========================================================================================");
         TC_LOG_INFO("server.loading", "Loaded ACE Config...");
         sAceMgr->LoadAceConfig();
 

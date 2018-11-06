@@ -18,7 +18,6 @@
 #include "ace_common.h"
 #include "QueryPackets.h"
 
-
 AceMgr::AceMgr()
 {
 }
