@@ -24,6 +24,7 @@
 #include "Errors.h"
 #include "GameTime.h"
 #include "Log.h"
+#include "Player.h"
 #include <map>
 #include <unordered_map>
 
@@ -49,6 +50,11 @@ class TC_GAME_API AceMgr
             AceConfigContainer::const_iterator itr = _aceConfigStore.find(entry);
             return itr != _aceConfigStore.end() ? &itr->second : nullptr;
         }
+
+        //AccountExtra instance
+        void SetAccountExtra(uint32 accountId);
+        uint32 Getjf(uint32 accountId) const;
+        void Addjf(uint32 accountId, int32 value);
        
     private:
         AceConfigContainer _aceConfigStore;

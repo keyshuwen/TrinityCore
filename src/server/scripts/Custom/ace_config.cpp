@@ -22,7 +22,6 @@
 #include "ObjectMgr.h"
 #include "Opcodes.h"
 #include "Pet.h"
-#include "Player.h"
 #include "RBAC.h"
 #include "ReputationMgr.h"
 #include "WorldSession.h"
@@ -51,7 +50,7 @@ class cs_ace_config : public PlayerScript
 public:
     cs_ace_config() : PlayerScript("cs_ace_config") { }
 
-    void OnLogin(Player* player, bool loginFirst)
+    void OnLogin(Player* player, bool loginFirst) override
     {
         // login hint
         AceConfig const* itr = sAceMgr->GetAceConfig("Player.login");
@@ -65,8 +64,20 @@ public:
     }
 };
 
+class cs_ace_ActionLogin : public AccountScript
+{
+public:
+    cs_ace_ActionLogin() : AccountScript("cs_ace_ActionLogin") { }
+
+    void OnAccountLogin(uint32 accountId) override
+    {
+        sAceMgr->SetAccountExtra(accountId);
+    }
+};
+
 void AddSC_cs_ace_config()
 {
     new cs_ace_PrepareToPlay();
     new cs_ace_config();
+    new cs_ace_ActionLogin();
 }

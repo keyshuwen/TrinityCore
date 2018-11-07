@@ -22,7 +22,6 @@
 #include "ObjectMgr.h"
 #include "Opcodes.h"
 #include "Pet.h"
-#include "Player.h"
 #include "RBAC.h"
 #include "ReputationMgr.h"
 #include "WorldSession.h"
@@ -43,6 +42,7 @@ public:
 
         static std::vector<ChatCommand> aceCommandTable =
         {
+            { "jf",           rbac::RBAC_PERM_COMMAND_ACE_JF,                            true, &HandleAceAddjfCommand,              "" },
             { "reLoad",       rbac::RBAC_PERM_COMMAND_ACE_RELOAD,                        true, nullptr,        "" , ReLoadAceConfigCommandTable },
         };
         static std::vector<ChatCommand> HandleAceCommandTable =
@@ -57,6 +57,28 @@ public:
         TC_LOG_INFO("misc", "Re-Loading `_ace_config` Table!");
         sAceMgr->LoadAceConfig();
         handler->SendGlobalGMSysMessage("DB table `_ace_config` reloaded.");
+        return true;
+    }
+    static bool HandleAceAddjfCommand(ChatHandler* handler, char const* args)
+    {
+        if (!*args)
+            return false;
+
+        Player* target = handler->getSelectedPlayerOrSelf();
+        if (!target)
+        {
+            handler->SendSysMessage(LANG_PLAYER_NOT_FOUND);
+            return true;
+        }
+
+        uint32 useramount = sAceMgr->Getjf(target->GetSession()->GetAccountId());
+        int32 amount = atoi(args);
+        int32 Accountjf = useramount + amount;
+        if (Accountjf < 0)
+            Accountjf = 0;
+
+        sAceMgr->Addjf(target->GetSession()->GetAccountId(), amount);
+        handler->PSendSysMessage(LANG_ACE_COMMAND_MODIFY_JF, target->GetName(), useramount, amount, Accountjf);
         return true;
     }
 };

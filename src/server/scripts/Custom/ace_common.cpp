@@ -65,3 +65,26 @@ void AceMgr::LoadAceConfig()
 
     TC_LOG_INFO("server.loading", ">> Loaded %u ACE Config in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
 }
+
+void AceMgr::SetAccountExtra(uint32 accountId)
+{
+    QueryResult result = LoginDatabase.PQuery("SELECT id FROM _ace_account_Extra WHERE id = %u", accountId);
+    if (!result)
+        LoginDatabase.PExecute("INSERT INTO _ace_account_Extra(id, jf) VALUES(%u, 0)", accountId);
+}
+
+uint32 AceMgr::Getjf(uint32 accountId) const
+{
+    QueryResult result = LoginDatabase.PQuery("SELECT jf FROM _ace_account_Extra WHERE id = %u", accountId);
+    return (result) ? (*result)[0].GetUInt32() : 0;
+}
+
+void AceMgr::Addjf(uint32 accountId, int32 value)
+{
+    int32 Accountjf = Getjf(accountId);
+    int32 amount = Accountjf + value;
+    if (amount > 0)
+    {
+        LoginDatabase.PExecute("UPDATE _ace_account_Extra SET jf = %u WHERE id = %u", amount, accountId);
+    }
+}
