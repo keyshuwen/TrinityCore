@@ -279,7 +279,7 @@ void LootStore::ReportNonExistingId(uint32 lootId, char const* ownerType, uint32
 
 // Checks if the entry (quest, non-quest, reference) takes it's chance (at loot generation)
 // RATE_DROP_ITEMS is no longer used for all types of entries
-bool LootStoreItem::Roll(bool rate) const
+bool LootStoreItem::Roll(Player const* lootOwner, bool rate) const
 {
     if (chance >= 100.0f)
         return true;
@@ -290,6 +290,8 @@ bool LootStoreItem::Roll(bool rate) const
     ItemTemplate const* pProto = sObjectMgr->GetItemTemplate(itemid);
 
     float qualityModifier = pProto && rate ? sWorld->getRate(qualityToRate[pProto->Quality]) : 1.0f;
+
+    qualityModifier += lootOwner->m_lootRate;
 
     return roll_chance_f(chance*qualityModifier);
 }
@@ -560,7 +562,7 @@ void LootTemplate::CopyConditions(LootItem* li) const
 }
 
 // Rolls for every item in the template and adds the rolled items the the loot
-void LootTemplate::Process(Loot& loot, bool rate, uint16 lootMode, uint8 groupId) const
+void LootTemplate::Process(Loot& loot, bool rate, uint16 lootMode, Player const* lootOwner, uint8 groupId) const
 {
     if (groupId)                                            // Group reference uses own processing of the group
     {
@@ -581,7 +583,7 @@ void LootTemplate::Process(Loot& loot, bool rate, uint16 lootMode, uint8 groupId
         if (!(item->lootmode & lootMode))                       // Do not add if mode mismatch
             continue;
 
-        if (!item->Roll(rate))
+        if (!item->Roll(lootOwner, rate))
             continue;                                           // Bad luck for the entry
 
         if (item->reference > 0)                            // References processing
@@ -592,7 +594,7 @@ void LootTemplate::Process(Loot& loot, bool rate, uint16 lootMode, uint8 groupId
 
             uint32 maxcount = uint32(float(item->maxcount) * sWorld->getRate(RATE_DROP_ITEM_REFERENCED_AMOUNT));
             for (uint32 loop = 0; loop < maxcount; ++loop)      // Ref multiplicator
-                Referenced->Process(loot, rate, lootMode, item->groupid);
+                Referenced->Process(loot, rate, lootMode, lootOwner, item->groupid);
         }
         else                                                    // Plain entries (not a reference, not grouped)
             loot.AddItem(*item);                                // Chance is already checked, just add

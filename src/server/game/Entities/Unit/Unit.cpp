@@ -6512,6 +6512,9 @@ uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uin
     if (Player* modOwner = GetSpellModOwner())
         modOwner->ApplySpellMod(spellProto->Id, damagetype == DOT ? SPELLMOD_DOT : SPELLMOD_DAMAGE, tmpDamage);
 
+    if (GetTypeId() == TYPEID_PLAYER)
+        tmpDamage += tmpDamage * (ToPlayer()->m_dmgRate);
+
     return uint32(std::max(tmpDamage, 0.0f));
 }
 
@@ -7378,6 +7381,9 @@ uint32 Unit::SpellHealingBonusDone(Unit* victim, SpellInfo const* spellProto, ui
     if (Player* modOwner = GetSpellModOwner())
         modOwner->ApplySpellMod(spellProto->Id, damagetype == DOT ? SPELLMOD_DOT : SPELLMOD_DAMAGE, heal);
 
+    if (GetTypeId() == TYPEID_PLAYER)
+        heal += heal * (ToPlayer()->m_cureRate);
+
     return uint32(std::max(heal, 0.0f));
 }
 
@@ -7889,6 +7895,9 @@ uint32 Unit::MeleeDamageBonusDone(Unit* victim, uint32 pdamage, WeaponAttackType
     }
 
     float tmpDamage = float(int32(pdamage) + DoneFlatBenefit) * DoneTotalMod;
+
+    if (GetTypeId() == TYPEID_PLAYER)
+        tmpDamage += tmpDamage * (ToPlayer()->m_dmgRate);
 
     // bonus result can be negative
     return uint32(std::max(tmpDamage, 0.0f));

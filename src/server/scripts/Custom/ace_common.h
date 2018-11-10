@@ -34,6 +34,27 @@ struct AceConfig
     uint32 cost;
 };
 
+struct AceVipSystem
+{
+    std::string title;
+    std::string nameColor;
+    std::string chatColor;
+    uint32 reqItem;
+    uint32 jfCost;
+    uint32 everyDayItem;
+    uint32 addAutojf;
+    float lootRate;
+    float healthRate;
+    float dmgRate;
+    float cureRate;
+    float xpRate;
+    float reputationRate;
+    float adduppro;
+    uint32 aura;
+    uint32 talent;
+    std::string description;
+};
+
 class TC_GAME_API AceMgr
 {
     private:
@@ -51,13 +72,26 @@ class TC_GAME_API AceMgr
             return itr != _aceConfigStore.end() ? &itr->second : nullptr;
         }
 
+        void LoadAceVipSystem();
+        typedef std::unordered_map<uint32, AceVipSystem> AceVipSystemContainer;
+        AceVipSystem const* GetAceVipSystem(uint32 entry) const
+        {
+            AceVipSystemContainer::const_iterator itr = _aceVipSystemStore.find(entry);
+            return itr != _aceVipSystemStore.end() ? &itr->second : nullptr;
+        }
+
+        void ResetVipAura(Player* player);
+
         //AccountExtra instance
         void SetAccountExtra(uint32 accountId);
         uint32 Getjf(uint32 accountId) const;
         void Addjf(uint32 accountId, int32 value);
+        uint32 GetVipLevel(uint32 accountId) const;
+        void SetVipLevel(uint32 accountId, uint32 value);
        
     private:
         AceConfigContainer _aceConfigStore;
+        AceVipSystemContainer _aceVipSystemStore;
 
 };
 

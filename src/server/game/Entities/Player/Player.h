@@ -2152,6 +2152,25 @@ class TC_GAME_API Player : public Unit, public GridObject<Player>
         std::string GetMapAreaAndZoneString() const;
         std::string GetCoordsMapAreaAndZoneString() const;
 
+        /*********************************************************/
+        /***                  CUSTOM SYSTEM                    ***/
+        /*********************************************************/
+        uint32 m_vipLevel;
+        std::string m_title;
+        std::string m_nameColor;
+        std::string m_chatColor;
+        uint32 m_addAutojf;
+        float m_lootRate;
+        float m_healthRate;
+        float m_dmgRate;
+        float m_cureRate;
+        float m_xpRate;
+        float m_reputationRate;
+        float m_adduppro;
+        uint32 m_vipAura;
+        uint32 m_talent;
+        uint32 m_extra_talent;
+
     protected:
         // Gamemaster whisper whitelist
         GuidList WhisperList;

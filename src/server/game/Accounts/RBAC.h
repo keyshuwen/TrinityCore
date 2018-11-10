@@ -779,6 +779,8 @@ enum RBACPermissions
     RBAC_PERM_COMMAND_ACE_RELOAD                             = 3001,
     RBAC_PERM_COMMAND_ACE_RELOAD_ACECONFIG                   = 3002,
     RBAC_PERM_COMMAND_ACE_JF                                 = 3003,
+    RBAC_PERM_COMMAND_ACE_RELOAD_VIPSYSTEM                   = 3004,
+    RBAC_PERM_COMMAND_ACE_VIP                                = 3005,
 
     RBAC_PERM_MAX
 };

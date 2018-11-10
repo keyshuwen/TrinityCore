@@ -38,11 +38,13 @@ public:
         static std::vector<ChatCommand> ReLoadAceConfigCommandTable =
         {
             { "aceConfig",    rbac::RBAC_PERM_COMMAND_ACE_RELOAD_ACECONFIG,              true, &HandleAceReaceConfigCommand,        "" },
+            { "vipSystem",    rbac::RBAC_PERM_COMMAND_ACE_RELOAD_VIPSYSTEM,              true, &HandleAceVipSystemCommand,          "" },
         };
 
         static std::vector<ChatCommand> aceCommandTable =
         {
             { "jf",           rbac::RBAC_PERM_COMMAND_ACE_JF,                            true, &HandleAceAddjfCommand,              "" },
+            { "vip",          rbac::RBAC_PERM_COMMAND_ACE_VIP,                           true, &HandleAceAddvipCommand,             "" },
             { "reLoad",       rbac::RBAC_PERM_COMMAND_ACE_RELOAD,                        true, nullptr,        "" , ReLoadAceConfigCommandTable },
         };
         static std::vector<ChatCommand> HandleAceCommandTable =
@@ -79,6 +81,33 @@ public:
 
         sAceMgr->Addjf(target->GetSession()->GetAccountId(), amount);
         handler->PSendSysMessage(LANG_ACE_COMMAND_MODIFY_JF, target->GetName(), useramount, amount, Accountjf);
+        return true;
+    }
+    static bool HandleAceVipSystemCommand(ChatHandler* handler, char const* args)
+    {
+        TC_LOG_INFO("misc", "Re-Loading `_ace_vip_system` Table!");
+        sAceMgr->LoadAceVipSystem();
+        handler->SendGlobalGMSysMessage("DB table `_ace_vip_system` reloaded.");
+        return true;
+    }
+    static bool HandleAceAddvipCommand(ChatHandler* handler, char const* args)
+    {
+        if (!*args)
+            return false;
+
+        Player* target = handler->getSelectedPlayerOrSelf();
+        if (!target)
+        {
+            handler->SendSysMessage(LANG_PLAYER_NOT_FOUND);
+            return true;
+        }
+
+        uint32 amount = atoi(args);
+        if (amount < 0)
+            amount = 0;
+
+        sAceMgr->SetVipLevel(target->GetSession()->GetAccountId(), amount);
+        handler->PSendSysMessage(LANG_ACE_COMMAND_MODIFY_VIP, target->GetName(), amount);
         return true;
     }
 };

@@ -1165,6 +1165,7 @@ enum TrinityStrings
     LANG_ACE_PLAYER_LONGIN_FIRST                  = 90000,
     LANG_ACE_PLAYER_LONGIN                        = 90001,
     LANG_ACE_COMMAND_MODIFY_JF                    = 90002,
+    LANG_ACE_COMMAND_MODIFY_VIP                   = 90003,
 
     LANG_MAX_DATABASE_STATEMENTS                  = 100000
 };

@@ -400,6 +400,22 @@ Player::Player(WorldSession* session): Unit(true)
     healthBeforeDuel = 0;
     manaBeforeDuel = 0;
 
+    m_vipLevel = 0;
+    m_title = "";
+    m_nameColor = "";
+    m_chatColor = "";
+    m_addAutojf = 0;
+    m_lootRate = 0.0f;
+    m_healthRate = 0.0f;
+    m_dmgRate = 0.0f;
+    m_cureRate = 0.0f;
+    m_xpRate = 0.0f;
+    m_reputationRate = 0.0f;
+    m_adduppro = 0.0f;
+    m_vipAura = 0;
+    m_talent = 0;
+    m_extra_talent = 0;
+
     _cinematicMgr = new CinematicMgr(this);
 
     m_achievementMgr = new AchievementMgr(this);
@@ -24620,7 +24636,7 @@ uint32 Player::CalculateTalentsPoints() const
     uint32 base_talent = getLevel() < 10 ? 0 : getLevel()-9;
 
     if (getClass() != CLASS_DEATH_KNIGHT || GetMapId() != 609)
-        return uint32(base_talent * sWorld->getRate(RATE_TALENT));
+        return uint32(base_talent * sWorld->getRate(RATE_TALENT) + m_talent + m_extra_talent);
 
     uint32 talentPointsForLevel = getLevel() < 56 ? 0 : getLevel() - 55;
     talentPointsForLevel += m_questRewardTalentCount;
@@ -24628,7 +24644,7 @@ uint32 Player::CalculateTalentsPoints() const
     if (talentPointsForLevel > base_talent)
         talentPointsForLevel = base_talent;
 
-    return uint32(talentPointsForLevel * sWorld->getRate(RATE_TALENT));
+    return uint32(talentPointsForLevel * sWorld->getRate(RATE_TALENT) + m_talent + m_extra_talent);
 }
 
 bool Player::CanFlyInZone(uint32 mapid, uint32 zone, SpellInfo const* bySpell) const
