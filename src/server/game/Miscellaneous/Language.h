@@ -1166,6 +1166,12 @@ enum TrinityStrings
     LANG_ACE_PLAYER_LONGIN                        = 90001,
     LANG_ACE_COMMAND_MODIFY_JF                    = 90002,
     LANG_ACE_COMMAND_MODIFY_VIP                   = 90003,
+    LANG_ACE_PLAYER_WORLD_CHAT                    = 90004,
+    LANG_ACE_PLAYER_FACTION_CHAT                  = 90005,
+    LANG_ACE_PLAYER_ADD_JF                        = 90006,
+    LANG_ACE_PLAYER_COST_JF                       = 90007,
+    LANG_ACE_PLAYER_LACK_JF                       = 90008,
+
 
     LANG_MAX_DATABASE_STATEMENTS                  = 100000
 };

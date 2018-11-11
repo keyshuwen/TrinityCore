@@ -19,6 +19,7 @@
 void AddSC_cs_ace_config();
 void AddSC_cs_ace_command();
 void AddSC_cs_ace_vip();
+void AddSC_cs_ace_world_chat();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
@@ -27,4 +28,5 @@ void AddCustomScripts()
     AddSC_cs_ace_config();
     AddSC_cs_ace_command();
     AddSC_cs_ace_vip();
+    AddSC_cs_ace_world_chat();
 }

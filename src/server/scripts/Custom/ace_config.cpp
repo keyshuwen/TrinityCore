@@ -102,6 +102,10 @@ public:
             }
         }
 
+        //chatColor
+        if (player->m_chatColor.empty())
+            player->m_chatColor = "cFF00FF00";
+
         //Talent
         extra_talent = player->m_talent;
         extra_talent += player->m_extra_talent;

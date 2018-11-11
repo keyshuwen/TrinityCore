@@ -651,6 +651,7 @@ class TC_GAME_API World
         void LoadConfigSettings(bool reload = false);
 
         void SendWorldText(uint32 string_id, ...);
+        void SendFactionText(uint32 string_id, const uint32 team, ...);
         void SendGlobalText(char const* text, WorldSession* self);
         void SendGMText(uint32 string_id, ...);
         void SendServerMessage(ServerMessageType type, const char *text = "", Player* player = nullptr);
